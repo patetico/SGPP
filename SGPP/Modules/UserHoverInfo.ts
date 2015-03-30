@@ -129,7 +129,7 @@ module ModuleDefinition{
                 }
             };
 
-            $(document).on({
+            $('body').on({
                 mouseenter: function(e) {
                     var $el = $(e.target);
 
@@ -137,22 +137,14 @@ module ModuleDefinition{
                         return;
 
                     var pos = $el.offset();
-                    var style;
                     var winWidth = $(window).width();
                     var right = e.target.getBoundingClientRect().left > winWidth / 2;
-                    if (right) {
-                        style = {
-                            top: pos.top + ($el.height() / 2) - 25,
-                            right: winWidth - pos.left + 20,
-                            left: ''
-                        };
-                    } else {
-                        style = {
-                            top: pos.top + ($el.height() / 2) - 25,
-                            right: '',
-                            left: pos.left + $el.width() + 20
-                        };
-                    }
+                    var style = {
+                        top: pos.top + ($el.height() / 2) - 25,
+                        right: right ? winWidth - pos.left + 20 : '',
+                        left: right ? '' : pos.left + $el.width() + 20,
+                        zIndex: $el.parents('.SGPP__popup_giveaway').length > 0 ? '10000' : ''
+                    };
 
                     delayedBubble.run($el.attr('href'), style, right);
                 },
