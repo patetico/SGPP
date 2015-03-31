@@ -14,7 +14,7 @@ module ModuleDefinition {
             ".tile_view_header {font-size: 12px; border-bottom: 1px solid #D2D6E0; box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.3); margin-bottom: 3px; text-align: center}\n" +
             ".SGPP__gridAvatar_outer {float: right; display: inline-block; margin-left: 5px}\n" +
             ".SGPP__gridAvatar {height: 27px; width: 27px; padding: 2px}\n" +
-            ".SGPP__gridTile {margin: 5px}\n" +
+            ".SGPP__gridTile {margin: 5px; position: relative}\n" +
             ".SGPP__gridTile > .global__image-outer-wrap--game-medium {position: relative}\n" +
             ".SGPP__gridTile:not(:hover) .SGPP__gridTileTime {display: none}\n" +
             ".SGPP__gridTile:hover {opacity: 1}\n" +
@@ -24,7 +24,7 @@ module ModuleDefinition {
             ".SGPP__gridTileInfo .giveaway__icon {opacity: 0.7}\n" +
             ".SGPP__gridTileTime {position: absolute; bottom: 5px; left: 5px; height: 16px; text-align: center; background-color: #FFF; border-radius: 0 3px 0 0; padding: 2px 4px}\n" +
             ".SGPP__gridTileTime i {font-size: inherit; color:inherit}\n" +
-            ".SGPP__gridTileIcons {position: absolute; bottom: 5px; right: 5px}\n" +
+            ".SGPP__gridTileIcons {position: absolute; bottom: 6px; right: 6px}\n" +
             ".SGPP__gridTileIcons > * {display: inline-block; width: 20px; height: 16px; text-align: center; padding: 2px; border-radius: 3px 0 0; vertical-align: middle}\n" +
             ".SGPP__gridTileIcons > :not(:last-child) {padding-right: 4px; margin-right: -3px}\n" +
             ".SGPP__gridTileIcons i {font-size: inherit; color: inherit}\n" +
@@ -55,7 +55,7 @@ module ModuleDefinition {
 
         generateGridview = (root: JQuery) => {
             function calcWinChance(copies: number, entries: number) : string {
-                var chance = +(copies / entries) * 100;
+                var chance = +(copies / ++entries) * 100;
                 return chance < 0.01 ? '<0.01' : Math.min(chance, 100).toFixed(2);
             }
 
@@ -85,7 +85,7 @@ module ModuleDefinition {
                 var icons = gaColumns.slice(2);
                 if (icons.length > 0) {
                     icons.filter('.giveaway__column--contributor-level').text((i, txt) => txt.replace('Level ', ''));
-                    tileIcns.clone().append(icons).appendTo(gameImg);
+                    tileIcns.clone().append(icons).appendTo(thisTile);
                 }
 
                 var giveawayName = $el.find('.giveaway__heading__name').text();
